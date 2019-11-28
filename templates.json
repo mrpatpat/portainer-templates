@@ -2,7 +2,7 @@
   {
     "type": 3,
     "title": "Wordpress",
-    "description": "Wordpress setup with a MySQL database and Traefik-prepared labels",
+    "description": "Wordpress setup with a MySQL database and Traefik-prepared labels and automatic TLS via LetsEncrypt",
     "note": "Deploys a Wordpress instance connected to a MySQL database. MYSQL_USER, MYSQL_PASSWORD, MYSQL_ROOT_PASSWORD are the MySQL credentials. TRAEFIK_NAME is used for identification and TRAEFIK_DOMAIN is used for the correct domain mapping.",
     "categories": ["CMS"],
     "platform": "linux",
@@ -13,9 +13,29 @@
     },
     "env": [
       {
-        "name": "MYSQL_DATABASE_PASSWORD",
+        "name": "MYSQL_ROOT_PASSWORD",
         "label": "Database root password",
         "description": "Password used by the MySQL root user."
+      },
+      {
+        "name": "MYSQL_USER",
+        "label": "Database user",
+        "description": "Regular db user"
+      },
+      {
+        "name": "MYSQL_PASSWORD",
+        "label": "Database password",
+        "description": "Regular db user password"
+      },
+      {
+        "name": "TRAEFIK_NAME",
+        "label": "Traefik name",
+        "description": "An identification label for Traefik"
+      },
+      {
+        "name": "TRAEFIK_DOMAIN",
+        "label": "Traefik domain",
+        "description": "The domain Traefik should use for mapping and TLS. Should be without http and www"
       }
     ]
   }
