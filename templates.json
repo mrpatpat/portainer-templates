@@ -28,5 +28,30 @@
         "description": "The domain Traefik should use for mapping and TLS. Should be without http and www"
       }
     ]
+  },
+  {
+    "type": 3,
+    "title": "Wekan",
+    "description": "Wekan setup with a mongoDB database and Traefik-prepared labels and automatic TLS via LetsEncrypt",
+    "note": "Deploys a Wekan instance connected to a mongoDB database. TRAEFIK_NAME is used for identification and TRAEFIK_DOMAIN is used for the correct domain mapping.",
+    "categories": ["CMS"],
+    "platform": "linux",
+    "logo": "https://wekan.github.io/wekan-logo.svg",
+    "repository": {
+      "url": "https://github.com/mrpatpat/portainer-templates",
+      "stackfile": "stacks/wekan/docker-compose.yml"
+    },
+    "env": [
+      {
+        "name": "TRAEFIK_NAME",
+        "label": "Traefik name",
+        "description": "An identification label for Traefik"
+      },
+      {
+        "name": "TRAEFIK_DOMAIN",
+        "label": "Traefik domain",
+        "description": "The domain Traefik should use for mapping and TLS. Should be without http and www"
+      }
+    ]
   }
 ]

@@ -1,0 +1,38 @@
+version: "2"
+
+services:
+  wekan:
+    image: quay.io/wekan/wekan
+    networks:
+      - proxy
+    restart: always
+    links:
+      - wekandb
+    environment:
+      - MONGO_URL=mongodb://wekandb/wekan
+      - ROOT_URL=https://${TRAEFIK_DOMAIN}
+    ports:
+      - 8080
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wekan-${TRAEFIK_NAME}.entrypoints=http"
+      - "traefik.http.routers.wekan-${TRAEFIK_NAME}.rule=Host(`${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.middlewares.wekan-${TRAEFIK_NAME}-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.wekan-${TRAEFIK_NAME}.middlewares=wekan-${TRAEFIK_NAME}-https-redirect"
+      - "traefik.http.routers.wekan-${TRAEFIK_NAME}-secure.entrypoints=https"
+      - "traefik.http.routers.wekan-${TRAEFIK_NAME}-secure.rule=Host(`${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.routers.wekan-${TRAEFIK_NAME}-secure.tls=true"
+      - "traefik.http.routers.wekan-${TRAEFIK_NAME}-secure.tls.certresolver=http"
+      - "traefik.http.routers.wekan-${TRAEFIK_NAME}-secure.service=wekan-${TRAEFIK_NAME}"
+      - "traefik.docker.network=proxy"
+
+  wekandb:
+    image: mongo:3.2.21
+    networks:
+      - proxy
+    restart: always
+
+networks:
+  proxy:
+    external:
+      name: proxy
