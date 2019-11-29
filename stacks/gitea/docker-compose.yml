@@ -6,8 +6,8 @@ services:
     environment:
       - USER_UID=1000
       - USER_GID=1000
-      - ROOT_URL=http://${TRAEFIK_DOMAIN}:80
-      - SSH_DOMAIN=${TRAEFIK_DOMAIN}:22
+      - ROOT_URL=https://${TRAEFIK_DOMAIN}
+      - SSH_DOMAIN=https://${TRAEFIK_DOMAIN}
     restart: always
     ports:
       - 3000
