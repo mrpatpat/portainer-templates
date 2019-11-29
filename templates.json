@@ -78,10 +78,40 @@
         "description": "The domain Traefik should use for gitea mapping and TLS. Should be without http and www"
       },
       {
-        "name": "PG_USER"
+        "name": "PG_USER",
+        "label": "Postgres user"
       },
       {
-        "name": "PG_PW"
+        "name": "PG_PW",
+        "label": "Postgres password"
+      }
+    ]
+  },
+  {
+    "type": 3,
+    "title": "Drone CI",
+    "description": "",
+    "note": "",
+    "categories": ["Development"],
+    "platform": "linux",
+    "logo": "https://pbs.twimg.com/profile_images/1106628286107381761/R_wMcCqN.png",
+    "repository": {
+      "url": "https://github.com/mrpatpat/portainer-templates",
+      "stackfile": "stacks/drone/docker-compose.yml"
+    },
+    "env": [
+      {
+        "name": "TRAEFIK_NAME",
+        "label": "Traefik name",
+        "description": "An identification label for Traefik"
+      },
+      {
+        "name": "TRAEFIK_DOMAIN",
+        "label": "Traefik drone domain"
+      },
+      {
+        "name": "DRONE_GITEA_DOMAIN",
+        "label": "Gitea domain"
       }
     ]
   }

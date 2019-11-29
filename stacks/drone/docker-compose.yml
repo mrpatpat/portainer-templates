@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+  drone-server:
+    image: drone/drone:0.8.1
+    restart: always
+    ports:
+      - 80
+      - 443
+    environment:
+      - DRONE_GITEA_SERVER=${DRONE_GITEA_DOMAIN}
+      - DRONE_GIT_ALWAYS_AUTH=false
+      - DRONE_SERVER_PROTO=https
+      - DRONE_SERVER_HOST=${TRAEFIK_DOMAIN}
+      - DRONE_TLS_AUTOCERT=false
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.drone-${TRAEFIK_NAME}.entrypoints=http"
+      - "traefik.http.routers.drone-${TRAEFIK_NAME}.rule=Host(`${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.middlewares.drone-${TRAEFIK_NAME}-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.drone-${TRAEFIK_NAME}.middlewares=drone-${TRAEFIK_NAME}-https-redirect"
+      - "traefik.http.routers.drone-${TRAEFIK_NAME}-secure.entrypoints=https"
+      - "traefik.http.routers.drone-${TRAEFIK_NAME}-secure.rule=Host(`${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.routers.drone-${TRAEFIK_NAME}-secure.tls=true"
+      - "traefik.http.routers.drone-${TRAEFIK_NAME}-secure.tls.certresolver=http"
+      - "traefik.http.routers.drone-${TRAEFIK_NAME}-secure.service=drone-${TRAEFIK_NAME}"
+      - "traefik.docker.network=proxy"
+
+  drone-agent:
+    image: drone/agent:0.8.1
+    links:
+      - drone-server:drone-server
+    restart: always
+    depends_on: [ drone-server ]
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_SERVER=drone-server:9000
