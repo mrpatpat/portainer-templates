@@ -64,7 +64,7 @@
     "logo": "https://docs.gitea.io/images/gitea.png",
     "repository": {
       "url": "https://github.com/mrpatpat/portainer-templates",
-      "stackfile": "stacks/wekan/docker-compose.yml"
+      "stackfile": "stacks/gitea-drone/docker-compose.yml"
     },
     "env": [
       {
