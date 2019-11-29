@@ -13,6 +13,7 @@ services:
       - DRONE_SERVER_PROTO=https
       - DRONE_SERVER_HOST=${TRAEFIK_DOMAIN}
       - DRONE_TLS_AUTOCERT=false
+      - DRONE_GITEA=true
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.drone-${TRAEFIK_NAME}.entrypoints=http"
