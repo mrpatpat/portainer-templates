@@ -112,6 +112,14 @@
       {
         "name": "DRONE_GITEA_DOMAIN",
         "label": "Gitea domain"
+      },
+      {
+        "name": "GITEA_CLIENT_ID",
+        "label": "Gitea api client id"
+      },
+      {
+        "name": "GITEA_CLIENT_SECRET",
+        "label": "Gitea api client secret"
       }
     ]
   }
