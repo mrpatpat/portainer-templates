@@ -56,7 +56,7 @@
   },
   {
     "type": 3,
-    "title": "Gitea + Drone CI",
+    "title": "Gitea",
     "description": "",
     "note": "",
     "categories": ["Development"],
@@ -64,7 +64,7 @@
     "logo": "https://docs.gitea.io/images/gitea.png",
     "repository": {
       "url": "https://github.com/mrpatpat/portainer-templates",
-      "stackfile": "stacks/gitea-drone/docker-compose.yml"
+      "stackfile": "stacks/gitea/docker-compose.yml"
     },
     "env": [
       {
@@ -73,14 +73,15 @@
         "description": "An identification label for Traefik"
       },
       {
-        "name": "TRAEFIK_GITEA_DOMAIN",
+        "name": "TRAEFIK_DOMAIN",
         "label": "Traefik gitea domain",
         "description": "The domain Traefik should use for gitea mapping and TLS. Should be without http and www"
       },
       {
-        "name": "TRAEFIK_DRONE_DOMAIN",
-        "label": "Traefik drone domain",
-        "description": "The domain Traefik should use for drone mapping and TLS. Should be without http and www"
+        "name": "PG_USER"
+      },
+      {
+        "name": "PG_PW"
       }
     ]
   }
