@@ -46,7 +46,7 @@
         "name": "MOD_ID",
         "label": "MOD_ID",
         "description": "the modpack id"
-      }
+      },
       {
         "name": "TRAEFIK_NAME",
         "label": "Traefik name",
