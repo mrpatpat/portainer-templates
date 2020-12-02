@@ -6,7 +6,8 @@ services:
     networks:
       - proxy  
     ports:
-      - 25565
+      - 443:25565
+      - 80:25565
     tty: true
     stdin_open: true
     restart: always

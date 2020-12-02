@@ -34,7 +34,7 @@
     "title": "FTB MC",
     "description": "FTB MC",
     "note": "Deploys a FTB MC instance. TRAEFIK_NAME is used for identification and TRAEFIK_DOMAIN is used for the correct domain mapping.",
-    "categories": ["CMS"],
+    "categories": ["Games"],
     "platform": "linux",
     "logo": "https://www.feed-the-beast.com/img/logo_ftb.b4292827.png",
     "repository": {
