@@ -21,7 +21,7 @@ services:
       - "traefik.http.routers.delferftp-${TRAEFIK_NAME}-secure.rule=Host(`${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.delferftp-${TRAEFIK_NAME}-secure.tls=true"
       - "traefik.http.routers.delferftp-${TRAEFIK_NAME}-secure.tls.certresolver=http"
-      - "traefik.http.routers.delferftp-${TRAEFIK_NAME}-secure.service=wp-${TRAEFIK_NAME}"
+      - "traefik.http.routers.delferftp-${TRAEFIK_NAME}-secure.service=delferftp-${TRAEFIK_NAME}"
       - "traefik.docker.network=proxy"
 
 networks:
