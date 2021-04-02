@@ -13,15 +13,15 @@ services:
       USERS: ${DELFER_USERS}
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}.entrypoints=http"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}.rule=Host(`${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.middlewares.wp-${TRAEFIK_NAME}-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}.middlewares=delferftp-${TRAEFIK_NAME}-https-redirect"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.entrypoints=https"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.rule=Host(`${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.tls=true"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.tls.certresolver=http"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.service=wp-${TRAEFIK_NAME}"
+      - "traefik.http.routers.delferftp-${TRAEFIK_NAME}.entrypoints=http"
+      - "traefik.http.routers.delferftp-${TRAEFIK_NAME}.rule=Host(`${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.middlewares.delferftp-${TRAEFIK_NAME}-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.delferftp-${TRAEFIK_NAME}.middlewares=delferftp-${TRAEFIK_NAME}-https-redirect"
+      - "traefik.http.routers.delferftp-${TRAEFIK_NAME}-secure.entrypoints=https"
+      - "traefik.http.routers.delferftp-${TRAEFIK_NAME}-secure.rule=Host(`${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.routers.delferftp-${TRAEFIK_NAME}-secure.tls=true"
+      - "traefik.http.routers.delferftp-${TRAEFIK_NAME}-secure.tls.certresolver=http"
+      - "traefik.http.routers.delferftp-${TRAEFIK_NAME}-secure.service=wp-${TRAEFIK_NAME}"
       - "traefik.docker.network=proxy"
 
 networks:
