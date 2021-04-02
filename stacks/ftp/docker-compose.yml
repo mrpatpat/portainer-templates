@@ -16,7 +16,7 @@ services:
       - "traefik.http.routers.wp-${TRAEFIK_NAME}.entrypoints=http"
       - "traefik.http.routers.wp-${TRAEFIK_NAME}.rule=Host(`${TRAEFIK_DOMAIN}`)"
       - "traefik.http.middlewares.wp-${TRAEFIK_NAME}-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}.middlewares=wp-${TRAEFIK_NAME}-https-redirect"
+      - "traefik.http.routers.wp-${TRAEFIK_NAME}.middlewares=delferftp-${TRAEFIK_NAME}-https-redirect"
       - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.entrypoints=https"
       - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.rule=Host(`${TRAEFIK_DOMAIN}`)"
       - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.tls=true"
