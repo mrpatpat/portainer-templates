@@ -25,9 +25,22 @@ services:
       - PARSE_DATABASE_USER=bnparse
       - PARSE_DATABASE_NAME=bitnami_parse
       - PARSE_DATABASE_PASSWORD=${PARSE_DB_PW}
-      - PARSE_HOST=${TRAEFIK_DOMAIN}
+      - PARSE_HOST=api-${TRAEFIK_DOMAIN}
     networks:
       - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.parse-api-${TRAEFIK_NAME}.entrypoints=http"
+      - "traefik.http.routers.parse-api-${TRAEFIK_NAME}.rule=Host(`api-${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.middlewares.parse-api-${TRAEFIK_NAME}-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.parse-api-${TRAEFIK_NAME}.middlewares=parse-api-${TRAEFIK_NAME}-https-redirect"
+      - "traefik.http.routers.parse-api-${TRAEFIK_NAME}-secure.entrypoints=https"
+      - "traefik.http.routers.parse-api-${TRAEFIK_NAME}-secure.rule=Host(`api-${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.routers.parse-api-${TRAEFIK_NAME}-secure.tls=true"
+      - "traefik.http.routers.parse-api-${TRAEFIK_NAME}-secure.tls.certresolver=http"
+      - "traefik.http.routers.parse-api-${TRAEFIK_NAME}-secure.service=parse-api-${TRAEFIK_NAME}"
+      - "traefik.docker.network=proxy"
+      - "traefik.http.services.parse-api-${TRAEFIK_NAME}.loadbalancer.server.port=3000"
   parse-dashboard:
     image: docker.io/bitnami/parse-dashboard:3
     ports:
@@ -42,15 +55,15 @@ services:
       - proxy
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}.entrypoints=http"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}.rule=Host(`${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.middlewares.wp-${TRAEFIK_NAME}-https-redirect.redirectscheme.scheme=https"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}.middlewares=wp-${TRAEFIK_NAME}-https-redirect"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.entrypoints=https"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.rule=Host(`${TRAEFIK_DOMAIN}`)"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.tls=true"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.tls.certresolver=http"
-      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.service=wp-${TRAEFIK_NAME}"
+      - "traefik.http.routers.parse-${TRAEFIK_NAME}.entrypoints=http"
+      - "traefik.http.routers.parse-${TRAEFIK_NAME}.rule=Host(`${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.middlewares.parse-${TRAEFIK_NAME}-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.parse-${TRAEFIK_NAME}.middlewares=wp-${TRAEFIK_NAME}-https-redirect"
+      - "traefik.http.routers.parse-${TRAEFIK_NAME}-secure.entrypoints=https"
+      - "traefik.http.routers.parse-${TRAEFIK_NAME}-secure.rule=Host(`${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.routers.parse-${TRAEFIK_NAME}-secure.tls=true"
+      - "traefik.http.routers.parse-${TRAEFIK_NAME}-secure.tls.certresolver=http"
+      - "traefik.http.routers.parse-${TRAEFIK_NAME}-secure.service=parse-${TRAEFIK_NAME}"
       - "traefik.docker.network=proxy"
 volumes:
   mongodb_data:
