@@ -31,6 +31,36 @@
   },
   {
     "type": 3,
+    "title": "Parse BaaS",
+    "description": "stuff",
+    "note": "stuff",
+    "categories": ["BaaS"],
+    "platform": "linux",
+    "logo": "https://portainer-io-assets.sfo2.digitaloceanspaces.com/logos/wordpress.png",
+    "repository": {
+      "url": "https://github.com/mrpatpat/portainer-templates",
+      "stackfile": "stacks/parse/docker-compose.yml"
+    },
+    "env": [
+      {
+        "name": "PARSE_DB_PW",
+        "label": "Database root user pw",
+        "description": "mongo db user pw"
+      },
+      {
+        "name": "TRAEFIK_NAME",
+        "label": "Traefik name",
+        "description": "An identification label for Traefik"
+      },
+      {
+        "name": "TRAEFIK_DOMAIN",
+        "label": "Traefik domain",
+        "description": "The domain Traefik should use for mapping and TLS. Should be without http and www"
+      }
+    ]
+  },
+  {
+    "type": 3,
     "title": "FTB MC",
     "description": "FTB MC",
     "note": "Deploys a FTB MC instance. TRAEFIK_NAME is used for identification and TRAEFIK_DOMAIN is used for the correct domain mapping.",

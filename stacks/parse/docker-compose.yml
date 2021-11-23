@@ -1,0 +1,66 @@
+version: '2'
+services:
+  mongodb:
+    image: docker.io/bitnami/mongodb:4.2
+    volumes:
+      - 'mongodb_data:/bitnami/mongodb'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MONGODB_USERNAME=bnparse
+      - MONGODB_DATABASE=bitnami_parse
+      - MONGODB_PASSWORD=${PARSE_DB_PW}
+    networks:
+      - proxy
+  parse:
+    image: docker.io/bitnami/parse:4
+    ports:
+      - '1337:1337'
+    volumes:
+      - 'parse_data:/bitnami/parse'
+    depends_on:
+      - mongodb
+    environment:
+      - PARSE_DATABASE_HOST=mongodb
+      - PARSE_DATABASE_PORT_NUMBER=27017
+      - PARSE_DATABASE_USER=bnparse
+      - PARSE_DATABASE_NAME=bitnami_parse
+      - PARSE_DATABASE_PASSWORD=${PARSE_DB_PW}
+      - PARSE_HOST=${TRAEFIK_DOMAIN}
+    networks:
+      - proxy
+  parse-dashboard:
+    image: docker.io/bitnami/parse-dashboard:3
+    ports:
+      - '80:4040'
+    volumes:
+      - 'parse_dashboard_data:/bitnami'
+    depends_on:
+      - parse
+    environment:
+      - PARSE_HOST=${TRAEFIK_DOMAIN}
+    networks:
+      - proxy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.wp-${TRAEFIK_NAME}.entrypoints=http"
+      - "traefik.http.routers.wp-${TRAEFIK_NAME}.rule=Host(`${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.middlewares.wp-${TRAEFIK_NAME}-https-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.wp-${TRAEFIK_NAME}.middlewares=wp-${TRAEFIK_NAME}-https-redirect"
+      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.entrypoints=https"
+      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.rule=Host(`${TRAEFIK_DOMAIN}`)"
+      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.tls=true"
+      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.tls.certresolver=http"
+      - "traefik.http.routers.wp-${TRAEFIK_NAME}-secure.service=wp-${TRAEFIK_NAME}"
+      - "traefik.docker.network=proxy"
+volumes:
+  mongodb_data:
+    driver: local
+  parse_data:
+    driver: local
+  parse_dashboard_data:
+    driver: local
+
+networks:
+  proxy:
+    external:
+      name: proxy
