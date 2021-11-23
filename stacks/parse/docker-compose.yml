@@ -26,7 +26,6 @@ services:
       - PARSE_DATABASE_NAME=bitnami_parse
       - PARSE_DATABASE_PASSWORD=${PARSE_DB_PW}
       - PARSE_HOST=api-${TRAEFIK_DOMAIN}
-      - PARSE_BIND_HOST=api-${TRAEFIK_DOMAIN}
       - PARSE_ENABLE_HTTPS
     networks:
       - proxy
